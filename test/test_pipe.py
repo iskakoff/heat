@@ -18,8 +18,8 @@ class PipeTestCase(unittest.TestCase):
         p1 = pipe.Pipe(temp_init=100, length=10, port_radius=0.2, n=50, dt=0.1, t_max=100)
         p2 = pipe.Pipe(temp_init=100, length=10, port_radius=0.2, n=50, dt=0.1, t_max=100)
         p1.attach(p2)
-        self.assertEqual(p1.inlet, p2)
-        self.assertEqual(p2.outlet, p1)
+        self.assertEqual(p1.outlet, p2)
+        self.assertEqual(p2.inlet, p1)
 
     def test_time_step_unattached(self):
         p = pipe.Pipe(temp_init=100, length=10, port_radius=0.2, n=10, dt=0.1, t_max=100)
@@ -28,7 +28,7 @@ class PipeTestCase(unittest.TestCase):
     def test_time_step(self):
         source = ConstantTSource(temp_init=100)
         p = pipe.Pipe(temp_init=100, length=10, port_radius=0.2, n=10, dt=0.1, t_max=100)
-        p.attach(source)
+        source.attach(p)
         T_out_init = p.temperature[-1]
         p.time_step(self.setup)
         T_out = p.temperature[-1]
@@ -36,7 +36,7 @@ class PipeTestCase(unittest.TestCase):
 
         # Test that pipe with non-zero heat_transfer transfer coefficient will lose temperature to the environment
         p2 = pipe.Pipe(temp_init=150, length=10, port_radius=0.2, n=10, dt=0.1, t_max=100, u=0.01)
-        p2.attach(source)
+        source.attach(p2)
         T_out_init = p2.temperature[-1]
         p2.time_step(self.setup)
         T_out = p2.temperature[-1]
@@ -44,7 +44,7 @@ class PipeTestCase(unittest.TestCase):
 
         # Test that pipe with non-zero heat_transfer transfer coefficient will absorb temperature to the environment
         p3 = pipe.Pipe(temp_init=50, length=10, port_radius=0.2, n=10, dt=0.1, t_max=100, u=0.01)
-        p3.attach(source)
+        source.attach(p3)
         T_out_init = p3.temperature[-1]
         p3.time_step(self.setup)
         T_out = p3.temperature[-1]

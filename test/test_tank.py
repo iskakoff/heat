@@ -9,7 +9,7 @@ class TankTestCase(unittest.TestCase):
     def test_tank_init(self):
         t = Tank(10, 10, 10, 10, temp_init=100, **vars(self.setup))
         s = ConstantTSource(temp_init=500)
-        t.attach(s)
+        s.attach(t)
         t.time_step(self.setup)
         t.update()
         self.assertGreater(t.temperature[0], t.temperature[1])

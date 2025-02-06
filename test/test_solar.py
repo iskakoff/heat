@@ -9,7 +9,7 @@ class SolarTestCase(unittest.TestCase):
     def test_heating(self):
         s = Solar(steady_temperature=600, temp_init=400, **vars(self.setup))
         source = ConstantTSource(temp_init=400)
-        s.attach(source)
+        source.attach(s)
         T_out_init = s.T_outlet
         s.time_step(self.setup)
         T_out = s.temperature[-1]

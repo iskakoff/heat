@@ -1,3 +1,5 @@
+from typing import Type, Self
+
 from heat_transfer.flow_object import FlowObject
 
 
@@ -17,3 +19,7 @@ class ConstantTSource(FlowObject):
     @property
     def flow_rate(self):
         return self._flow_rate
+
+    def attach(self, port: Type[Self]):
+        super(ConstantTSource, self).attach(port)
+        port.flow_rate = self._flow_rate
