@@ -14,7 +14,7 @@ The following classes are defined:
     - idealized storage tank that has no energy loss
 
 To run simulation use `python main.py`. To adjust default parameters check available options with
-`python main.py --help`
+`python main.py --help`.
 
 ## Known restriction:
 

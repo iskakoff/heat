@@ -23,7 +23,13 @@ class Pipe(FlowObject, DynamicObject):
         """
         solve next step of the partial differential equation:
           ∂T/∂t = a ∂T/∂x + b(T_env - T)
-        using finite differences implicit scheme.
+        using finite differences implicit scheme, here T_env is the temperature of the environment.
+
+        For heat transfer equation:
+        a - v / ρ π r^2
+        b - 2 k / (Cp ρ r)
+        with k - heat transfer coefficient.
+
         :param setup: environment setup
         """
         if self._T_inlet is None:
